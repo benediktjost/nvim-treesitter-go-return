@@ -4,14 +4,15 @@ It can be used to create snippets for autofilling the go if err!=nil pattern.
 
 ## Usage with luasnip:
 
+
+```
+
 local ls = require("luasnip")
 local snip = ls.snippet
 local text = ls.text_node
 local func = ls.function_node
-
-```
-
 local i = ls.insert_node
+
 local returnString = function()
 	local res = " return "
 	require("nvim-treesitter-go-return").setup({ buildIn = { string = "foo" }, useNil = false })
