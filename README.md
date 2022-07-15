@@ -1,7 +1,9 @@
 # nvim-treesitter-go-return
 This plugin uses treesitter to determine the return types of a go function.
 It can be used to create snippets for auto filling the go if err!=nil pattern.
+![Alt Text](return.gif)
 
+Inspired by [TJDeVries](https://github.com/tjdevries) video on [luasnip](https://www.youtube.com/watch?v=Dn800rlPIho).
 ## Usage with luasnip:
 
 ```
