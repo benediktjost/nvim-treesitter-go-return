@@ -10,6 +10,7 @@ local text = ls.text_node
 local func = ls.function_node
 
 ```
+
 local i = ls.insert_node
 local returnString = function()
 	local res = " return "
@@ -53,6 +54,7 @@ nvim-treesitter-go-return.setup{opts}
 Setup function to be run by user. Configures the default return values.
 The defaults are:
 ```
+
 require("nvim-treesitter-go-return").setup({
 buildIn = { 
 	bool = '"false"',
