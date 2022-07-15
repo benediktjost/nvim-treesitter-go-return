@@ -1,17 +1,15 @@
 # nvim-treesitter-go-return
 This plugin uses treesitter to determine the return types of a go function.
-It can be used to create snippets for autofilling the go if err!=nil pattern.
+It can be used to create snippets for auto filling the go if err!=nil pattern.
 
 ## Usage with luasnip:
 
-
 ```
-
 local ls = require("luasnip")
 local snip = ls.snippet
 local text = ls.text_node
 local func = ls.function_node
-local i = ls.insert_node
+local input = ls.insert_node
 
 local returnString = function()
 	local res = " return "
@@ -32,7 +30,7 @@ ls.add_snippets(nil, {
 			trig = "ie",
 		}, {
 			text({ "if " }),
-			i(1, "err"),
+			input(1, "err"),
 			text({ " != nil {" }),
 			text({ " ", " " }),
 			func(returnString, {}),
@@ -46,34 +44,38 @@ ls.add_snippets(nil, {
 ```
 
 ## Installation
-Use your favorite package manager
+
+Use your favorite package manager to install the plugin.
 
 
 ## Configuration
 
-nvim-treesitter-go-return.setup{opts}
-Setup function to be run by user. Configures the default return values.
+Setup function to be run by user. Configures the default return values of the build in golang types via the buildIn table.
+If useNil is set to true nil is returned for pointer and slices otherwise pointer of the default values are returned.
+Maps, functions an interfaces are always returned as nil.
+
 The defaults are:
 ```
-
 require("nvim-treesitter-go-return").setup({
-buildIn = { 
-	bool = '"false"',
-	string = '""',
-	int16 = "0",
-	uint16 = "0",
-	uint32 = "0",
-	uint64 = "0",
-	int64 = "0",
-	int = "0",
-	uint = "0",
-	unitptr = "0",
-	float = "0",
-	float32 = "0",
-	float64 = "0",
-	complex64 = "0",
-	complex128 = "0",
-},
-useNil = true,
-})
+	buildIn = {
+		bool = '"false"',
+		string = '""',
+		int16 = "0",
+		uint16 = "0",
+		uint32 = "0",
+		uint64 = "0",
+		int64 = "0",
+		int = "0",
+		uint = "0",
+		unitptr = "0",
+		float = "0",
+		float32 = "0",
+		float64 = "0",
+		complex64 = "0",
+		complex128 = "0",
+	},
+	useNil = true,
+}
+
 ```
+

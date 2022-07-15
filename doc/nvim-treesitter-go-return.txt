@@ -11,7 +11,7 @@ It can be used to create snippets for autofilling the go if err!=nil pattern.
     local text = ls.text_node
     local func = ls.function_node
     
-    local i = ls.insert_node
+    local input = ls.insert_node
     local returnString = function()
     	local res = " return "
     	require("nvim-treesitter-go-return").setup({ buildIn = { string = "foo" }, useNil = false })
@@ -28,10 +28,10 @@ It can be used to create snippets for autofilling the go if err!=nil pattern.
     ls.add_snippets(nil, {
     	all = {
     		snip({
-    			trig = "ie",
+    			trig = "trigger",
     		}, {
     			text({ "if " }),
-    			i(1, "err"),
+    			input(1, "err"),
     			text({ " != nil {" }),
     			text({ " ", " " }),
     			func(returnString, {}),
@@ -42,19 +42,47 @@ It can be used to create snippets for autofilling the go if err!=nil pattern.
     		}),
     	},
     })
-
-                                             *nvim-treesitter-go-return.setup*
+    <
+                                               *nvim-treesitter-go-return.setup*
 
 nvim-treesitter-go-return.setup{opts}
-    Setup function to be run by user. Configures the default return values.
+    Setup function to be run by user. Configures the default return values of the build in golang types via the buildIn table.
+    If useNil is set to true nil is returned for pointer and slices otherwise pointer of the default values are returned.
+    Maps, functions an interfaces are always returned as nil.
+
     The defaults are:
     >
       require("nvim-treesitter-go-return").setup({
-      buildIn = { 
-        string = '""' 
-        int = '0'
-      },
-      useNil = true})
+        buildIn = {
+	  bool = '"false"',
+	  string = '""',
+	  int16 = "0",
+	  uint16 = "0",
+	  uint32 = "0",
+	  uint64 = "0",
+	  int64 = "0",
+	  int = "0",
+	  uint = "0",
+	  unitptr = "0",
+	  float = "0",
+	  float32 = "0",
+	  float64 = "0",
+	  complex64 = "0",
+	  complex128 = "0",
+	},
+	useNil = true,
+      })
+   <
+                                      *nvim-treesitter-go-return.getReturnTypes*
+
+nvim-treesitter-go-return.getReturnTypes
+    Returns the return types of the go function or method within the cursor position.
+
+                                     *nvim-treesitter-go-return.getReturnValues*
+
+nvim-treesitter-go-return.getReturnValues{skipError}
+  Returns the return values of the go function or method within the cursor position.
+  Skips the error value in case skipError is set to true.
 
 
-vim:tw=78:ts=8:ft=help:norl:
+ vim:tw=78:ts=8:ft=help:norl:

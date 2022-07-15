@@ -5,7 +5,7 @@ local M = {}
 M._buildIn = {}
 M._nilReturn = true
 M._buildIn = {
-	bool = '"false"',
+	bool = "false",
 	string = '""',
 	int16 = "0",
 	uint16 = "0",
@@ -124,15 +124,5 @@ M.getReturnTypes = function()
 	end
 	return result_types
 end
-
-M.getResultString = function()
-	local res = "return "
-	for _, val in pairs(M.getReturnTypes()) do
-		res = res .. parseToken(val, false)
-	end
-	return tostring(res)
-end
-
-M.setup({ buildIn = { string = "foo" }, useNil = false })
 
 return M
